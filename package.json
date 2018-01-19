@@ -1,0 +1,90 @@
+{
+  "_args": [
+    [
+      {
+        "name": "edi-api",
+        "raw": "edi-api",
+        "rawSpec": "",
+        "scope": null,
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Users/edipaulo/React2/apidoc"
+    ],
+    [
+      {
+        "raw": "edi-api@0.0.17",
+        "scope": null,
+        "escapedName": "edi-api",
+        "name": "edi-api",
+        "rawSpec": "0.0.17",
+        "spec": "0.0.17",
+        "type": "version"
+      },
+      "/Users/developer/projetos/bktravas/Aplicativo"
+    ]
+  ],
+  "_from": "edi-api",
+  "_id": "edi-api@0.0.18",
+  "_inBundle": false,
+  "_inCache": true,
+  "_installable": true,
+  "_integrity": "sha1-mlfIPF8TW0YsDgH1EYKRKSMIZR8=",
+  "_location": "/edi-api",
+  "_nodeVersion": "6.2.1",
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/edi-api-0.0.17.tgz_1467326172639_0.19600625382736325"
+  },
+  "_npmUser": {
+    "name": "edipaulozanella",
+    "email": "edipaulo@gmail.com"
+  },
+  "_npmVersion": "3.9.5",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "edi-api",
+    "name": "edi-api",
+    "escapedName": "edi-api",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/edi-api/-/edi-api-0.0.18.tgz",
+  "_shasum": "9a57c83c5f135b462c0e01f5118291292308651f",
+  "_shrinkwrap": null,
+  "_spec": "edi-api",
+  "_where": "/Users/developer/projects/bktravas",
+  "author": {
+    "name": "EDI"
+  },
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "description": "Teste",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "c61311d23d67a758593b58452939a7418b3367b9",
+    "tarball": "https://registry.npmjs.org/edi-api/-/edi-api-0.0.17.tgz"
+  },
+  "gitHead": "a37196cdb9f528825c81c713844e64ccb0d7e223",
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "edipaulozanella",
+      "email": "edipaulo@gmail.com"
+    }
+  ],
+  "name": "edi-api",
+  "optionalDependencies": {},
+  "scripts": {},
+  "version": "0.0.18"
+}
