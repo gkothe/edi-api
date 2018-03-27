@@ -192,7 +192,7 @@ public class ServiceFutebol extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
         System.out.println("entrou no start do  serviço");
-        // if (Build.VERSION.RELEASE.startsWith("6")) {
+         if (Build.VERSION.RELEASE.startsWith("6")) {
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         System.out.println("Comecçou serviço");
@@ -203,11 +203,11 @@ public class ServiceFutebol extends Service {
         service = new Thread(myrunnable);
         service.start();
         return START_STICKY;
-        // } else {
-        //     System.out.println("Serviço nao iniciado. Versão do android não é 6");
-        //     Toast.makeText(this, "Serviço nao iniciado. Versão do android não é 6", Toast.LENGTH_LONG).show();
-        //     return START_STICKY;
-        // }
+         } else {
+             System.out.println("Serviço nao iniciado. Versão do android não é 6");
+             Toast.makeText(this, "Serviço nao iniciado. Versão do android não é 6", Toast.LENGTH_LONG).show();
+             return START_STICKY;
+         }
 
     }
 
