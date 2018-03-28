@@ -13,7 +13,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
-
+import android.content.res.Resources;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,6 +24,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
+
 
 /**
  * Created by gdk1a on 23/03/2018.
@@ -113,10 +115,10 @@ public class ServiceFutebol extends Service {
                 n.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
                 n.setSound(Uri.parse("android.resource://com.m1app.clubefm/raw/entrada"));
 
-          Resources res = getApplicationContext().getResources();
+        Resources res = getApplicationContext().getResources();
         String packageName = getApplicationContext().getPackageName();
         int smallIconResId = res.getIdentifier("ic_notification", "mipmap", packageName);
-        notification.setSmallIcon(smallIconResId);
+        n.setSmallIcon(smallIconResId);
 
         
         //    notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
