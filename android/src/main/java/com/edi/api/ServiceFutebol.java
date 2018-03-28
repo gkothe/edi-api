@@ -109,10 +109,16 @@ public class ServiceFutebol extends Service {
         int id = Integer.parseInt((System.currentTimeMillis() / 1000) + "") + randInt(1, 30000);
 
         Notification.Builder n = new Notification.Builder(this).setContentTitle(title).setContentText(content)
-                .setSmallIcon(android.R.drawable.star_big_on).setContentIntent(pIntent).setAutoCancel(true);
+               .setContentIntent(pIntent).setAutoCancel(true);
                 n.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
                 n.setSound(Uri.parse("android.resource://com.m1app.clubefm/raw/entrada"));
 
+          Resources res = getApplicationContext().getResources();
+        String packageName = getApplicationContext().getPackageName();
+        int smallIconResId = res.getIdentifier("ic_notification", "mipmap", packageName);
+        notification.setSmallIcon(smallIconResId);
+
+        
         //    notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(id, n.build());
 
