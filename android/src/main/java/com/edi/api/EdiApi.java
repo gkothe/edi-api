@@ -1,12 +1,18 @@
 package com.edi.api;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
+import android.os.Build;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -21,6 +27,8 @@ import java.util.Map;
 public class EdiApi extends ReactContextBaseJavaModule {
 
     ServiceFutebol servico = null;
+    private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
+    private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
 
     public EdiApi(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -45,13 +53,19 @@ public class EdiApi extends ReactContextBaseJavaModule {
     @ReactMethod
     public void startServiceFutebol() {
         System.out.println("chamou start");
+        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
         if (isMyServiceRunning(ServiceFutebol.class)) {
             System.out.println("ta rodando");
-        }else{
+        } else {
             System.out.println("nao ta rodando");
             getReactApplicationContext().startService(new Intent(getReactApplicationContext(), ServiceFutebol.class));
         }
 
+    }
+
+    @ReactMethod
+    public void getOsVersion(Callback call) {
+        call.invoke(Build.VERSION.RELEASE);
     }
 
     @ReactMethod

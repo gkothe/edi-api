@@ -13,7 +13,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
-
+import android.content.res.Resources;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -39,7 +39,7 @@ public class ServiceFutebol extends Service {
     public Threadzin myrunnable = null;
     public static String email = "";
     //private String urlAdress = "http://clube-futebol.1app.com.br:7015/v1/user_local/pesquisa";
-    public static String urlAdress = "http://192.168.25.194:7015/v1/alertas/pesquisa_ultimos";
+    public static String urlAdress = "";
     SharedPreferences settings = null;
     HttpURLConnection con = null;
     URL url = null;
@@ -109,9 +109,14 @@ public class ServiceFutebol extends Service {
         int id = Integer.parseInt((System.currentTimeMillis() / 1000) + "") + randInt(1, 30000);
 
         Notification.Builder n = new Notification.Builder(this).setContentTitle(title).setContentText(content)
-                .setSmallIcon(android.R.drawable.star_big_on).setContentIntent(pIntent).setAutoCancel(true);
-                n.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-                n.setSound(Uri.parse("android.resource://com.m1app.clubefm/raw/entrada"));
+                .setContentIntent(pIntent).setAutoCancel(true);
+        n.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+        n.setSound(Uri.parse("android.resource://com.m1app.clubefm/raw/entrada"));
+
+        Resources res = getApplicationContext().getResources();
+        String packageName = getApplicationContext().getPackageName();
+        int smallIconResId = res.getIdentifier("ic_notification", "mipmap", packageName);
+        n.setSmallIcon(smallIconResId);
 
         //    notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(id, n.build());
@@ -181,7 +186,7 @@ public class ServiceFutebol extends Service {
 
     public void stopService() {
         System.out.println("antes do if do mata servico");
-        notificationManager.cancel(1);
+        //notificationManager.cancel(1);
         if (service != null && service.isAlive()) {
             System.out.println("entrou no if do mata servico");
             myrunnable.stop();
@@ -192,22 +197,22 @@ public class ServiceFutebol extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
         System.out.println("entrou no start do  serviço");
-        // if (Build.VERSION.RELEASE.startsWith("6")) {
+        if (Build.VERSION.RELEASE.startsWith("6")) {
 
-        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        System.out.println("Comecçou serviço");
-        stopService();
-        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
-        //notificarRunning();
-        myrunnable = new Threadzin();
-        service = new Thread(myrunnable);
-        service.start();
-        return START_STICKY;
-        // } else {
-        //     System.out.println("Serviço nao iniciado. Versão do android não é 6");
-        //     Toast.makeText(this, "Serviço nao iniciado. Versão do android não é 6", Toast.LENGTH_LONG).show();
-        //     return START_STICKY;
-        // }
+            notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            System.out.println("Comecçou serviço");
+            stopService();
+            Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+            //notificarRunning();
+            myrunnable = new Threadzin();
+            service = new Thread(myrunnable);
+            service.start();
+            return START_STICKY;
+        } else {
+            System.out.println("Serviço nao iniciado. Versão do android não é 6");
+            Toast.makeText(this, "Serviço nao iniciado. Versão do android não é 6", Toast.LENGTH_LONG).show();
+            return START_STICKY;
+        }
 
     }
 
