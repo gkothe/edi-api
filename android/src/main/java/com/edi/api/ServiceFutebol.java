@@ -40,6 +40,9 @@ public class ServiceFutebol extends Service {
     public static String email = "";
     //private String urlAdress = "http://clube-futebol.1app.com.br:7015/v1/user_local/pesquisa";
     public static String urlAdress = "";
+    public static String tokenfirebase = "";
+    public static boolean ignorarVersaoAndroid = false;
+
     SharedPreferences settings = null;
     HttpURLConnection con = null;
     URL url = null;
@@ -55,12 +58,24 @@ public class ServiceFutebol extends Service {
     SharedPreferences.Editor editor;
     NotificationManager notificationManager = null;
 
+    public void setIgnorarVersaoAndroid(boolean ignorarVersaoAndroid) {
+        ServiceFutebol.ignorarVersaoAndroid = ignorarVersaoAndroid;
+    }
+
+    public String getTokenfirebase() {
+        return tokenfirebase;
+    }
+
+    public void setTokenfirebase(String tokenfirebase) {
+        ServiceFutebol.tokenfirebase = tokenfirebase;
+    }
+
     public String getUrlAdress() {
         return urlAdress;
     }
 
     public void setUrlAdress(String urlAdress) {
-        this.urlAdress = urlAdress;
+        ServiceFutebol.urlAdress = urlAdress;
     }
 
     public String getEmail() {
@@ -68,7 +83,7 @@ public class ServiceFutebol extends Service {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        ServiceFutebol.email = email;
     }
 
     public void notificarRunning() {
@@ -153,6 +168,7 @@ public class ServiceFutebol extends Service {
         jsonParam = new JSONObject();
         jsonParam.put("id", lastid);
         jsonParam.put("email", email);
+        jsonParam.put("tokenfirebase", tokenfirebase);
 
         wr = new OutputStreamWriter(con.getOutputStream());
         wr.write(jsonParam.toString());
@@ -197,7 +213,7 @@ public class ServiceFutebol extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
         System.out.println("entrou no start do  serviço");
-        if (Build.VERSION.RELEASE.startsWith("6")) {
+        if (Build.VERSION.RELEASE.startsWith("6")|| ignorarVersaoAndroid) {
 
             notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             System.out.println("Comecçou serviço");
@@ -229,7 +245,7 @@ public class ServiceFutebol extends Service {
         public void run() {
             while (!exit) {
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(3000);
                     buscaInfos();
                 } catch (Exception e) {
                     e.printStackTrace();

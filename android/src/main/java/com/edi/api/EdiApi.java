@@ -69,6 +69,22 @@ public class EdiApi extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void setIgnorarVersaoAndroid(boolean  ignorarVersaoAndroid) {
+        ServiceFutebol.ignorarVersaoAndroid =  ignorarVersaoAndroid;
+    }
+
+    @ReactMethod
+    public void setTokenfirebase(String tokenfirebase) {
+        ServiceFutebol.tokenfirebase = tokenfirebase;
+    }
+
+    @ReactMethod
+    public void getTokenfirebase(Callback call) {
+        call.invoke(ServiceFutebol.tokenfirebase);
+    }
+
+
+    @ReactMethod
     public void setEmailServiceFutebol(String email) {
         ServiceFutebol.email = email;
     }
