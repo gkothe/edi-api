@@ -218,7 +218,7 @@ public class ServiceFutebol extends Service {
             notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             System.out.println("Comecçou serviço");
             stopService();
-            Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
             //notificarRunning();
             myrunnable = new Threadzin();
             service = new Thread(myrunnable);
@@ -226,7 +226,7 @@ public class ServiceFutebol extends Service {
             return START_STICKY;
         } else {
             System.out.println("Serviço nao iniciado. Versão do android não é 6");
-            Toast.makeText(this, "Serviço nao iniciado. Versão do android não é 6", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Serviço nao iniciado. Versão do android não é 6", Toast.LENGTH_LONG).show();
             return START_STICKY;
         }
 
@@ -236,7 +236,7 @@ public class ServiceFutebol extends Service {
     public void onDestroy() {
         stopService();
         super.onDestroy();
-        Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
     }
 
     class Threadzin implements Runnable {
