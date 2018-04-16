@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 import android.content.res.Resources;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -115,7 +116,7 @@ public class ServiceFutebol extends Service {
         return randomNum;
     }
 
-    public void notificar(String title, String content) {
+    public void notificar(String title, String content, String flagsound) {
 
         //Intent intent = new Intent(getBaseContext(), MainActivity.class);
         Intent intent = new Intent();
@@ -125,8 +126,13 @@ public class ServiceFutebol extends Service {
 
         Notification.Builder n = new Notification.Builder(this).setContentTitle(title).setContentText(content)
                 .setContentIntent(pIntent).setAutoCancel(true);
-        n.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-        n.setSound(Uri.parse("android.resource://com.m1app.clubefm/raw/entrada"));
+        n.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+        if (flagsound.equalsIgnoreCase("e")) {
+            n.setSound(Uri.parse("android.resource://com.m1app.clubefm/raw/entrada"));
+        } else if (flagsound.equalsIgnoreCase("s")) {
+            n.setSound(Uri.parse("android.resource://com.m1app.clubefm/raw/saida"));
+        }
+
 
         Resources res = getApplicationContext().getResources();
         String packageName = getApplicationContext().getPackageName();
@@ -189,7 +195,18 @@ public class ServiceFutebol extends Service {
         for (int i = 0; i < retorno.length(); i++) {
             item = retorno.getJSONObject(i);
             lastid = Integer.parseInt(item.get("_id").toString());
-            notificar(item.get("title").toString(), item.get("body").toString());
+            if (item.get("sound") != null && !(item.get("sound").toString().equalsIgnoreCase("null"))) {
+                if (item.get("sound").toString().startsWith("entrada")) {
+                    notificar(item.get("title").toString(), item.get("body").toString(), "e");
+                }
+                if (item.get("sound").toString().startsWith("sa")) {
+                    notificar(item.get("title").toString(), item.get("body").toString(), "s");
+                }else{
+                    notificar(item.get("title").toString(), item.get("body").toString(), "");
+                }
+            } else {
+                notificar(item.get("title").toString(), item.get("body").toString(), "");
+            }
             Thread.sleep(100);
         }
 
@@ -213,12 +230,12 @@ public class ServiceFutebol extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
         System.out.println("entrou no start do  serviço");
-        if (Build.VERSION.RELEASE.startsWith("6")|| ignorarVersaoAndroid) {
+        if (Build.VERSION.RELEASE.startsWith("6") || ignorarVersaoAndroid) {
 
             notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             System.out.println("Comecçou serviço");
             stopService();
-           // Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+            // Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
             //notificarRunning();
             myrunnable = new Threadzin();
             service = new Thread(myrunnable);
@@ -236,7 +253,7 @@ public class ServiceFutebol extends Service {
     public void onDestroy() {
         stopService();
         super.onDestroy();
-       // Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
+        // Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
     }
 
     class Threadzin implements Runnable {
@@ -257,5 +274,6 @@ public class ServiceFutebol extends Service {
             exit = true;
         }
     }
+
 
 }
