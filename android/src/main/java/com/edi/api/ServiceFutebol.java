@@ -198,8 +198,7 @@ public class ServiceFutebol extends Service {
             if (item.get("sound") != null && !(item.get("sound").toString().equalsIgnoreCase("null"))) {
                 if (item.get("sound").toString().startsWith("entrada")) {
                     notificar(item.get("title").toString(), item.get("body").toString(), "e");
-                }
-                if (item.get("sound").toString().startsWith("sa")) {
+                } else if (item.get("sound").toString().startsWith("sa")) {
                     notificar(item.get("title").toString(), item.get("body").toString(), "s");
                 }else{
                     notificar(item.get("title").toString(), item.get("body").toString(), "");
